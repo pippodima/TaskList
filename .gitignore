@@ -1,0 +1,19 @@
+# === Java / Maven === 
+target/
+*.class
+*.jar
+*.war
+*.ear
+
+# === Eclipse ===
+.classpath
+.project
+.settings/
+
+# === macOS ===
+.DS_Store
+
+# === Logs / temp ===
+*.log
+*.tmp
+
