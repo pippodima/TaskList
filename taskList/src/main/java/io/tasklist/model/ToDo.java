@@ -1,4 +1,4 @@
-package io.tasklist;
+package io.tasklist.model;
 
 public class ToDo {
 	private String title;

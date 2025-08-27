@@ -1,4 +1,4 @@
-package io.tasklist;
+package io.tasklist.model;
 
 /**
  * Unit test for simple App.

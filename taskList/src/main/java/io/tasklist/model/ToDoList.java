@@ -1,4 +1,4 @@
-package io.tasklist;
+package io.tasklist.model;
 
 import java.util.ArrayList;
 import java.util.List;
