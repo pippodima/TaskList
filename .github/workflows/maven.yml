@@ -22,21 +22,21 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('tasklist/pom.xml') }}
+          key: ${{ runner.os }}-m2-${{ hashFiles('taskList/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
       - name: Build with Maven (tests + coverage + mutation)
         run: mvn -B verify org.pitest:pitest-maven:mutationCoverage
-        working-directory: tasklist
+        working-directory: taskList
 
       - name: Upload coverage to Coveralls
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: tasklist/target/site/jacoco/jacoco.xml
+          path-to-lcov: taskList/target/site/jacoco/jacoco.xml
 
       - name: Analyze with SonarCloud
-        working-directory: tasklist
+        working-directory: taskList
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B sonar:sonar \
@@ -48,4 +48,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: PIT-report
-          path: tasklist/target/pit-reports
+          path: taskList/target/pit-reports
