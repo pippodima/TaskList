@@ -11,33 +11,41 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+
       - name: Set up JDK 17
         uses: actions/setup-java@v4
         with:
           java-version: 17
           distribution: 'zulu'
+
       - name: Cache Maven packages
         uses: actions/cache@v4
         with:
           path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          key: ${{ runner.os }}-m2-${{ hashFiles('tasklist/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+
       - name: Build with Maven (tests + coverage + mutation)
         run: mvn -B verify org.pitest:pitest-maven:mutationCoverage
+        working-directory: tasklist
+
       - name: Upload coverage to Coveralls
         uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          path-to-lcov: target/site/jacoco/jacoco.xml
+          path-to-lcov: tasklist/target/site/jacoco/jacoco.xml
+
       - name: Analyze with SonarCloud
+        working-directory: tasklist
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B sonar:sonar \
           -Dsonar.projectKey=pippodima_TaskList \
           -Dsonar.organization=pippodima \
           -Dsonar.host.url=https://sonarcloud.io
+
       - name: Archive PIT report
         uses: actions/upload-artifact@v4
         with:
           name: PIT-report
-          path: target/pit-reports
+          path: tasklist/target/pit-reports
