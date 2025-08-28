@@ -19,6 +19,8 @@
     <surefire.version>3.1.2</surefire.version>
     <jacoco.version>0.8.13</jacoco.version>
     <pit.junit5.version>1.2.1</pit.junit5.version>
+    
+  	<sonar.organization>pippodima-1</sonar.organization>
 
   </properties>
 
